@@ -32,8 +32,52 @@ public class ComplexNumber {
 	}
 	
 	public String toString(){
-		return this.r + "," + this.i;
+		return this.r + " + " + this.i+ ('i');
 	}
 	
+	ComplexNumber add (ComplexNumber rhs){
+		this.setR(this.getR() + rhs.getR());
+		this.setI(this.getI() + rhs.getI());
+		return this;
+	}
+
+	ComplexNumber sub (ComplexNumber rhs){
+		this.setR(this.getR() - rhs.getR());
+		this.setI(this.getI() - rhs.getI());
+		return this;
+	}
+
+	ComplexNumber mult (ComplexNumber rhs){
+		this.setR((this.getR() * rhs.getR()) - (this.getI() * rhs.getI()));
+		this.setI((this.getR() * rhs.getI()) + (this.getI() * rhs.getR()));
+		return this;
+	}
+
+	ComplexNumber div (ComplexNumber rhs){
+		//unfinished
+		
+		return this;
+	}
+
+	double mag(){
+		//unfinished
+
+		return 0.0;
+	}
+	ComplexNumber conj(){
+		//unfinished
+
+		return this;
+	}
+	ComplexNumber sqrt(){
+		//unfinished
+
+		return this;
+	}
 	
+	boolean equals(ComplexNumber rhs){
+		//unfinished
+
+		return false; 
+	}
 }
