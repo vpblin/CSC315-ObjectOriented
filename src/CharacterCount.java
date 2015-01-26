@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 
 public class CharacterCount {
+//This file includes two methods to check the occurrence of a character in a string
+//One Recursive function and an iterative function
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
