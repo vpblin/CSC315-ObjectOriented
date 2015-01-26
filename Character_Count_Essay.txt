@@ -1,0 +1,11 @@
+Assignment 01 
+01/25/14
+Blin Kazazi
+Dr. Reinhart
+
+This assignment was interesting because I had to find two ways to solve the same problem. And these two methods of solving the problem were very different from each other. 
+
+It was not a difficult problem at all. Just making sure that I had the correct file path and reading the file from a FileReader and not a File object. I also had to make sure that I used two different FileReaders because two functions cannot share the same file reader. 
+I tested the code by running it on a file where I knew exactly how many H characters there were. The tests proved that both functions work properly. 
+
+
