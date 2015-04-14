@@ -36,4 +36,11 @@ public class Parent {
 		System.out.println("override in Parent\n");
 	}
 	
+	public void method () {
+		System.out.println("child\n");
+	}
+
+	public void testOverride(){
+		System.out.println("Hello");
+	}
 }

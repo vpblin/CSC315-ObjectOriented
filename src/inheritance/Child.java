@@ -34,5 +34,17 @@ public class Child extends Parent {
 	public void override () {
 		System.out.println("override in Child\n");
 	}
+	public void method () {
+		System.out.println("child\n");
+	}
 	
+	public void testOverride(){
+		System.out.println("Test hellp from child");
+	}
+
+	public void onlychild(){
+		System.out.println("only child");
+	}
+
+
 }

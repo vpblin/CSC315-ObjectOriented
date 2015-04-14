@@ -13,12 +13,13 @@ public class Substitution {
 	public static void main(String[] args) {
 		Parent A = new Parent (1.0, 2.0);
 		Child B = new Child (1.0, 2.0);
+		//B.method();
+		A.testOverride();
 
-		System.out.println("Parent: " + A.getX() + " " + A.getY());
-		System.out.println(" Child: " + B.getX() + " " + B.getY());
-		A.override();
-		System.out.println();
-		
+		B.testOverride();
+		A = B;
+		B.onlychild();
+		A.testOverride();
 		/*// -- call UseParent() with a Parent class instance
 		UseParent(A);
 
