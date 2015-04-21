@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
+
 public class grid extends GridBase{
 	int x;
 	int y;
@@ -115,7 +117,11 @@ public class grid extends GridBase{
 	public void load(String filename, boolean clear) {
 		// TODO Auto-generated method stub
 		//thanks:  http://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
-		String csvFile = "my_grid_csv.csv";
+		JFileChooser fc = new JFileChooser();
+		//In response to a button click:
+		int returnVal = fc.showOpenDialog(fc);
+		
+		String csvFile = fc.getName(fc.getSelectedFile());
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
@@ -176,9 +182,9 @@ public class grid extends GridBase{
 //		this.clear_update();
 	}
 	public boolean isSpaceShipNearby(int i, int j){
-		if(sumOfNeighbors(i, j) == 4 && sumOfNeighbors(i, plus(j)) == 4){
+		if(sumOfNeighbors(i, j) == 4){
 			return true;
-		}else if(sumOfNeighbors(i, j) == 5 && sumOfNeighbors(i, plus(j)) == 1){
+		}else if(sumOfNeighbors(i, j) == 5){
 			return true;
 		}else if(sumOfNeighbors(i, j) == 5 && sumOfNeighbors(i, plus(j)) == 3 && sumOfNeighbors(i, minus(j)) == 1){
 			return true;
@@ -192,6 +198,21 @@ public class grid extends GridBase{
 			return true;
 		}else if(sumOfNeighbors(i, j) == 2 && sumOfNeighbors(minus(i), minus(j)) == 1 && sumOfNeighbors((i), plus(j)) == 2){
 			return true;
+		}else if(sumOfNeighbors(i, j) ==4 && sumOfNeighbors(minus(i), minus(j)) == 1 && sumOfNeighbors((i), plus(j)) == 3){
+			System.out.println("Found a spaceship");
+			return true;
+		}else if(sumOfNeighbors(i, j) ==2 && sumOfNeighbors(plus(i), plus(j)) == 2 && sumOfNeighbors((i), plus(j)) == 3){
+			System.out.println("Found a spaceship");
+			return true;
+		}else if(sumOfNeighbors(i, j) ==1 && sumOfNeighbors(plus(i), plus(j)) == 3 && sumOfNeighbors((i), plus(j)) == 5){
+			System.out.println("Found a spaceship");
+			return true;
+		}else if(sumOfNeighbors(i, j) ==1 && sumOfNeighbors(plus(i), plus(j)) == 5 && sumOfNeighbors((i), plus(j)) == 3){
+			System.out.println("Found a spaceship");
+			return true;
+		}else if(sumOfNeighbors(i, j) ==4){
+			System.out.println("Found a spaceship");
+			return true;
 		}else{
 			return false;
 		}
@@ -202,7 +223,10 @@ public class grid extends GridBase{
 			for(int j = 0; j < this.y; j++){
 				//find interesting points
 				if(sumOfNeighbors(i, j) ==2){
-					if((getGridCell(minus(i), j) == 1) && (getGridCell(minusTwo(i), j) == 1) && (getGridCell((i), minus(j)) == 1) && (getGridCell(minus(i), minusTwo(j)) == 1)){
+					//	0	0	1  
+					//	1	0	1     
+					//	0	1	1  
+					if((getGridCell(minus(i), j) == 1) && (getGridCell(minusTwo(i), j) == 1) && (getGridCell((i), minus(j)) == 1) && (getGridCell(minus(i), minusTwo(j)) == 1)&&(getGridCell((i), (j)) == 1) ){
 						setUpdatedGridCell(i, j, 1);
 						setUpdatedGridCell(minus(i), j, 1);
 						setUpdatedGridCell(minus(i), plus(j), 1);
@@ -210,20 +234,32 @@ public class grid extends GridBase{
 						setUpdatedGridCell(minusTwo(i), minus(j), 1);
 						setUpdatedGridCell(minus(i), minus(j), 0);
 						setUpdatedGridCell((i), minusTwo(j), 0);
+						setUpdatedGridCell((i), plus(j), 0);
 
 						//setUpdatedGridCell(minus(i), minus(j), 0);
+					}
+					
+					//	0	1	0  
+					//	0	0	1     
+					//	1	1	1  
 
-					}else if((getGridCell((i), (j)) == 1) && (getGridCell(minus(i), j) == 1) && (getGridCell((i), minus(j)) == 1) && (getGridCell((i), minusTwo(j)) == 1) && (getGridCell(minusTwo(i), minus(j)) == 1)){
+					else if((getGridCell((i), (j)) == 1) && (getGridCell(minus(i), j) == 1) && (getGridCell((i), minus(j)) == 1) && (getGridCell((i), minusTwo(j)) == 1) && (getGridCell(minusTwo(i), minus(j)) == 1)){
 						setUpdatedGridCell(i, j, 1);
 						setUpdatedGridCell(minus(i), j, 1);
 						setUpdatedGridCell(minus(i), minus(j), 0);
 						setUpdatedGridCell(i, minus(j), 1);
-						setUpdatedGridCell(i, minusTwo(j), 0);
-						setUpdatedGridCell(minus(i), minusTwo(j), 1);
 						setUpdatedGridCell(plus(i), minus(j), 1);
-						setUpdatedGridCell(minusTwo(i), minus(j), 0);
+						setUpdatedGridCell(plus(i), (j), 0);
+						setUpdatedGridCell(plus(i), minusTwo(j), 0);
+						setUpdatedGridCell(minus(i), minusTwo(j), 1);
+						setUpdatedGridCell((i), minusTwo(j), 0);
 
-					}else if((getGridCell((i), (j)) == 1) && (getGridCell(minus(i), j) == 1) && (getGridCell(minusTwo(i), minus(j)) == 1) && (getGridCell(minusTwo(i), plus(j)) == 1) && (getGridCell(minus(i), plus(j)) == 1)){
+					}
+					//	1	0	1  
+					//	0	1	1     
+					//	0	1	0  
+
+					else if((getGridCell((i), (j)) == 1) && (getGridCell(minus(i), j) == 1) && (getGridCell(minusTwo(i), minus(j)) == 1) && (getGridCell(minusTwo(i), plus(j)) == 1) && (getGridCell(minus(i), plus(j)) == 1)){
 						setUpdatedGridCell(i, j, 1);
 						setUpdatedGridCell((i), plus(j), 1);
 						setUpdatedGridCell(minus(i), plus(j), 1);
@@ -234,8 +270,98 @@ public class grid extends GridBase{
 						setUpdatedGridCell(minus(i), minus(j), 1);
 						setUpdatedGridCell((i), minus(j), 0);
 					}
+					//	0	1	0  
+					//	1	0	0     
+					//	1	1	1  
+					// next
+					//	1	0	1  
+					//	1	1	0     
+					//	0	1	0  
+
+					
+					
+					else if((getGridCell((i), (j)) == 1) && (getGridCell(minus(i), j) == 1) && (getGridCell(minusTwo(i), plus(j)) == 1) && (getGridCell((i), plus(j)) == 1) && (getGridCell((i), plusTwo(j)) == 1)){
+						setUpdatedGridCell(i, j, 1);
+						setUpdatedGridCell((i), plus(j), 1);
+						setUpdatedGridCell(minus(i), (j), 1);
+						setUpdatedGridCell(minus(i), plusTwo(j), 1);
+						setUpdatedGridCell(minus(i), minus(j), 0);
+						setUpdatedGridCell(plus(i), (j), 0);
+						setUpdatedGridCell(plus(i), plus(j), 1);
+						setUpdatedGridCell((i), plusTwo(j), 0);
+						setUpdatedGridCell(plus(i), plusTwo(j), 0);
+					}
+					//	1	0	1  
+					//	1	1	0     
+					//	0	1	0  
+					// next
+					//	1	0	0  
+					//	1	0	1     
+					//	1	1	0  
+
+					
+					
+					else if((getGridCell((i), (j)) == 1) && (getGridCell(plus(i), j) == 1) && (getGridCell(minus(i), minus(j)) == 1) && (getGridCell(plus(i), plus(j)) == 1) && (getGridCell((i), minus(j)) == 1)){
+						setUpdatedGridCell(i, j, 0);
+						setUpdatedGridCell(minus(i), minus(j), 1);
+						setUpdatedGridCell((i), (j), 1);
+						setUpdatedGridCell(plus(i), (j), 1);
+						setUpdatedGridCell(plus(i), minus(j), 1);
+						setUpdatedGridCell((i), plus(j), 1);
+						setUpdatedGridCell(plus(i), plus(j), 0);
+						setUpdatedGridCell(minus(i), plus(j), 0);
+						setUpdatedGridCell(minus(i), (j), 0);
+					}
+					
+					//	1	0	0  
+					//	1	0	1     
+					//	1	1	0  
+					// next
+					//	0	0	1  
+					//	1	1	0     
+					//	0	1	1  
+
+					
+					
+					else if((getGridCell((i), (j)) == 1) && (getGridCell(minus(i), j) == 1) && (getGridCell(minusTwo(i), (j)) == 1) && (getGridCell((i), plus(j)) == 1) && (getGridCell(minus(i), plusTwo(j)) == 1)){
+						setUpdatedGridCell(i, j, 1);
+						setUpdatedGridCell((i), plus(j), 1);
+						setUpdatedGridCell(minus(i), plusTwo(j), 1);
+						setUpdatedGridCell(plus(i), plus(j), 1);
+						setUpdatedGridCell(plus(i), plusTwo(j), 1);
+						setUpdatedGridCell(minus(i), (j), 0);
+						setUpdatedGridCell(plus(i), (j), 0);
+						setUpdatedGridCell(minus(i), plus(j), 0);
+						setUpdatedGridCell((i), plusTwo(j), 0);
+					}
+
+					//	0	0	1  
+					//	1	1	0     
+					//	0	1	1  
+					// next
+					//	0	1	0  
+					//	1	0	0     
+					//	1	1	1  
+
+					
+					
+					else if((getGridCell((i), (j)) == 1) && (getGridCell((i), plus(j)) == 1) && (getGridCell(minus(i), (j)) == 1) && (getGridCell(minus(i), minus(j)) == 1) && (getGridCell(minusTwo(i), plus(j)) == 1)){
+						setUpdatedGridCell(i, j, 1);
+						setUpdatedGridCell((i), minus(j), 1);
+						setUpdatedGridCell((i), plus(j), 1);
+						setUpdatedGridCell(minus(i), minus(j), 1);
+						setUpdatedGridCell(minusTwo(i), (j), 1);
+						setUpdatedGridCell(minus(i), (j), 0);
+						setUpdatedGridCell(minus(i), plus(j), 0);
+						setUpdatedGridCell(minusTwo(i), plus(j), 0);
+					}
+
+
 				}else if(sumOfNeighbors(i, j) ==3){
 					//low down step 3 glider
+					//	0	0	0  
+					//	0	0	0     
+					//	0	0	0  
 					if((getGridCell((i), j) == 1) && (getGridCell((i), minus(j)) == 1) && (getGridCell(minus(i), (j)) == 1) && (getGridCell(minusTwo(i), minus(j)) == 1)&& (getGridCell(minus(i), plus(j)) == 1)){
 						setUpdatedGridCell(i, j, 1);
 						setUpdatedGridCell(minus(i), j, 0);
@@ -246,7 +372,6 @@ public class grid extends GridBase{
 						setUpdatedGridCell(minusTwo(i), minus(j), 0);
 						setUpdatedGridCell(minus(i), plus(j), 1);
 						setUpdatedGridCell(minusTwo(i), plus(j), 0);
-
 					}
 				}
 				
@@ -321,21 +446,28 @@ public class grid extends GridBase{
 			for(int j = 0; j < this.y; j++){
 				if(this.getGridCell(i, j) == 0 && !this.isSpaceShipNearby(i, j)){
 					if(this.getGridCell(subtractOneFrom(i), subtractOneFrom(j)) == 1 && this.getGridCell((i), subtractOneFrom(j)) == 1 && this.getGridCell(subtractOneFrom(i), (j)) == 1&& this.getGridCell((i), subtractOneFrom(j)) == 1){
+						System.out.println("Bos at " + i + " " + j);
 						this.setUpdatedGridCell(i, j, 1);
 						this.setUpdatedGridCell(minus(i), j, 1);
 						this.setUpdatedGridCell(minus(i), minus(j), 1);
 						this.setUpdatedGridCell((i), minus(j), 1);
 					}else if(this.getGridCell(addOneTo(i), addOneTo(j)) == 1 && this.getGridCell((i), addOneTo(j)) == 1 && this.getGridCell(addOneTo(i), (j)) == 1){
+						System.out.println("Bos at " + i + " " + j);
+
 						this.setUpdatedGridCell(i, j, 1);
 						this.setUpdatedGridCell(plus(i), j, 1);
 						this.setUpdatedGridCell(plus(i), plus(j), 1);
 						this.setUpdatedGridCell((i), plus(j), 1);
 					}else if(this.getGridCell(subtractOneFrom(i), addOneTo(j)) == 1 && this.getGridCell(subtractOneFrom(i), (j)) == 1 && this.getGridCell((i), addOneTo(j)) == 1){
+						System.out.println("Bos at " + i + " " + j);
+
 						this.setUpdatedGridCell(i, j, 1);
 						this.setUpdatedGridCell(minus(i), j, 1);
 						this.setUpdatedGridCell(minus(i), plus(j), 1);
 						this.setUpdatedGridCell((i), plus(j), 1);
 					}else if(this.getGridCell((i), subtractOneFrom(j)) == 1 && this.getGridCell(addOneTo(i), subtractOneFrom(j)) == 1 && this.getGridCell(addOneTo(i), (j)) == 1){
+						System.out.println("Bos at " + i + " " + j);
+
 						this.setUpdatedGridCell(i, j, 1);
 						this.setUpdatedGridCell(plus(i), j, 1);
 						this.setUpdatedGridCell(plus(i), minus(j), 1);

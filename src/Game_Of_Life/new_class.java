@@ -164,14 +164,14 @@ public class new_class extends JFrame {
 		j_save.setBounds(0, 76, 117, 29);
 		layeredPane.add(j_save);
 		
-		JButton btnNewButton = new JButton("Load");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton j_load = new JButton("Load");
+		j_load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadGrid();
 			}
 		});
-		btnNewButton.setBounds(0, 101, 117, 29);
-		layeredPane.add(btnNewButton);
+		j_load.setBounds(0, 101, 117, 29);
+		layeredPane.add(j_load);
 		contentPane.setLayout(gl_contentPane);
 	}
 	public JTable initiateTable(JTable table){
