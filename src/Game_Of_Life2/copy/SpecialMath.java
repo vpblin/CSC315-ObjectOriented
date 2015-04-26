@@ -1,17 +1,17 @@
-package Game_Of_Life2;
+package Game_Of_Life2.copy;
 
 //class to handle addition and subtraction
 
 public class SpecialMath {
 	int max;
 	int min;
-	ConwayRules rule;
-	public SpecialMath(ConwayRules rule){
+	RuleSet rule;
+	public SpecialMath(RuleSet rule){
 		max = 35;
 		min = 35;
 		this.rule = rule;
 	}
-	public SpecialMath(int x, int y, ConwayRules rule){
+	public SpecialMath(int x, int y, RuleSet rule){
 		max = x;
 		min = y;
 		rule = rule;

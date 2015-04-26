@@ -1,4 +1,4 @@
-package Game_Of_Life2;
+package Game_Of_Life2.copy;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,9 +13,7 @@ public class grid extends GridBase{
 	int[][] grid_matrix;
 	int[][] updated_grid_matrix;
 	SpecialMath math;
-	ConwayRules rule;
-	CustomRule my_custom_rule;	//unused
-
+	RuleSet rule;
 	//default size is 35 X 35
 	public grid(){
 		this.x = 35;
@@ -30,7 +28,6 @@ public class grid extends GridBase{
 				updated_grid_matrix[i][j] = 0;
 			}
 		}
-		rule = new ConwayRules(false, grid_matrix, updated_grid_matrix,x,y);
 	}
 	//create method to create grid with whatever size
 	public grid(int x, int y){

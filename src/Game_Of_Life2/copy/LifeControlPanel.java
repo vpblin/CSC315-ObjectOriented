@@ -1,4 +1,4 @@
-package Game_Of_Life2;
+package Game_Of_Life2.copy;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

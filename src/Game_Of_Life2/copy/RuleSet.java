@@ -1,4 +1,4 @@
-package Game_Of_Life2;
+package Game_Of_Life2.copy;
 
 public class RuleSet implements RuleSetInterface{
 	boolean wrapper;
